@@ -1,0 +1,1 @@
+openocd -f openocd_dap.cfg -c "program build/C_Board_Framework.elf verify reset exit"
