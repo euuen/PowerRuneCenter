@@ -25,3 +25,4 @@ typedef struct {
 
 void FSi6x_Init(FSi6x_Data *data);
 void FSi6x_Read(FSi6x_Data *data);
+uint8_t FSi6x_IsDisconnectd();

@@ -1,0 +1,43 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "msys configure",
+			"type": "shell",
+			"command": "C:\\msys64\\msys2_shell.cmd -defterm -no-start -use-full-path -here -ucrt64 -c ./scripts/configure.sh"
+		},
+		{
+			"label": "msys build",
+			"type": "shell",
+			"command": "C:\\msys64\\msys2_shell.cmd -defterm -no-start -use-full-path -here -ucrt64 -c ./scripts/build.sh",
+			"group": {
+				"kind": "build",
+				"isDefault": true,
+			},
+		},
+		{
+			"label": "ubuntu flash",
+			"type": "shell",
+			"command": "bash ./scripts/flash_daplink.sh"
+		},
+				{
+			"label": "ubuntu configure",
+			"type": "shell",
+			"command": "bash -c ./scripts/configure.sh"
+		},
+		{
+			"label": "ubuntu build",
+			"type": "shell",
+			"command": "bash ./scripts/build.sh",
+			"group": {
+				"kind": "build",
+				"isDefault": true,
+			},
+		},
+		{
+			"label": "msys flash",
+			"type": "shell",
+			"command": "C:\\msys64\\msys2_shell.cmd -defterm -no-start -use-full-path -here -ucrt64 -c ./scripts/flash_daplink.sh"
+		}
+	]
+}

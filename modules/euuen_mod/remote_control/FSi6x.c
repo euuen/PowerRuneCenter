@@ -52,26 +52,26 @@ void FSi6x_Init(FSi6x_Data *data) {
 
 void FSi6x_Read(FSi6x_Data *data) {
   // ---- 摇杆（映射到 -1 ~ 1） ----
-  data->right_stick_x =
-      MAP_TO_NEG1_1(sbus_rc.channels[0], RIGHT_STICK_X_MIN, RIGHT_STICK_X_MAX);
-  data->right_stick_y =
-      MAP_TO_NEG1_1(sbus_rc.channels[1], RIGHT_STICK_Y_MIN, RIGHT_STICK_Y_MAX);
-  data->left_stick_y =
-      MAP_TO_NEG1_1(sbus_rc.channels[2], LEFT_STICK_Y_MIN, LEFT_STICK_Y_MAX);
-  data->left_stick_x =
-      MAP_TO_NEG1_1(sbus_rc.channels[3], LEFT_STICK_X_MIN, LEFT_STICK_Y_MAX);
+  data->right_stick_x = MAP_TO_NEG1_1(
+      SBUS_RC_GetChannel(SBUS_CHANNEL_1), RIGHT_STICK_X_MIN, RIGHT_STICK_X_MAX);
+  data->right_stick_y = MAP_TO_NEG1_1(
+      SBUS_RC_GetChannel(SBUS_CHANNEL_2), RIGHT_STICK_Y_MIN, RIGHT_STICK_Y_MAX);
+  data->left_stick_y = MAP_TO_NEG1_1(
+      SBUS_RC_GetChannel(SBUS_CHANNEL_3), LEFT_STICK_Y_MIN, LEFT_STICK_Y_MAX);
+  data->left_stick_x = MAP_TO_NEG1_1(
+      SBUS_RC_GetChannel(SBUS_CHANNEL_4), LEFT_STICK_X_MIN, LEFT_STICK_X_MAX);
 
-  // ---- 两态开关：SWA, SWB, SWD（直接内联判断） ----
-  data->swa = (sbus_rc.channels[4] > (SWA_UP + SWA_DOWN) / 2)
+  // ---- 两态开关：SWA, SWB, SWD ----
+  data->swa = (SBUS_RC_GetChannel(SBUS_CHANNEL_5) > (SWA_UP + SWA_DOWN) / 2)
                   ? FSi6x_STICK_STATE_DOWN
                   : FSi6x_STICK_STATE_UP;
 
-  data->swb = (sbus_rc.channels[5] > (SWB_UP + SWB_DOWN) / 2)
+  data->swb = (SBUS_RC_GetChannel(SBUS_CHANNEL_6) > (SWB_UP + SWB_DOWN) / 2)
                   ? FSi6x_STICK_STATE_DOWN
                   : FSi6x_STICK_STATE_UP;
 
   {
-    uint16_t raw = sbus_rc.channels[6];
+    uint16_t raw = SBUS_RC_GetChannel(SBUS_CHANNEL_7);
     if (raw > SWITCH_THRESHOLD_HIGH)
       data->swc = FSi6x_STICK_STATE_DOWN;
     else if (raw < SWITCH_THRESHOLD_LOW)
@@ -80,11 +80,18 @@ void FSi6x_Read(FSi6x_Data *data) {
       data->swc = FSi6x_STICK_STATE_MID;
   }
 
-  data->swd = (sbus_rc.channels[7] > (SWD_UP + SWD_DOWN) / 2)
+  data->swd = (SBUS_RC_GetChannel(SBUS_CHANNEL_8) > (SWD_UP + SWD_DOWN) / 2)
                   ? FSi6x_STICK_STATE_DOWN
                   : FSi6x_STICK_STATE_UP;
 
   // ---- 旋钮（映射到 0 ~ 1） ----
-  data->vra = MAP_TO_01(sbus_rc.channels[8], VRA_MIN, VRA_MAX);
-  data->vrb = MAP_TO_01(sbus_rc.channels[9], VRB_MIN, VRB_MAX);
+  data->vra = MAP_TO_01(SBUS_RC_GetChannel(SBUS_CHANNEL_9), VRA_MIN, VRA_MAX);
+  data->vrb = MAP_TO_01(SBUS_RC_GetChannel(SBUS_CHANNEL_10), VRB_MIN, VRB_MAX);
+}
+
+uint8_t FSi6x_IsDisconnectd() {
+  // 当接收机接收超时，丢帧，有异常的时候判定断连
+  return SBUS_RC_IsTimeout()
+      || SBUS_RC_GetFlag(SBUS_LOST_FRAME)
+      || SBUS_RC_GetFlag(SBUS_FAIL_SAFE);
 }

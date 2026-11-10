@@ -2,7 +2,7 @@ add_library(applications INTERFACE)
 
 target_sources(applications INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/board_app/fsm.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/board_app/main.c
+    # ${CMAKE_CURRENT_SOURCE_DIR}/board_app/main.c
     ${CMAKE_CURRENT_SOURCE_DIR}/board_app/protocol.c
 )
 

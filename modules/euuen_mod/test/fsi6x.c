@@ -26,10 +26,10 @@ void APP_Setup() {
 void APP_Loop() {
   FSi6x_Read(&fsi6x_data);
 
-  char out_str[64];
-  snprintf(out_str, sizeof(out_str), "rx=%.2f ry=%.2f swa=%d swd=%d vra=%.2f\n",
+  char out_str[128];
+  snprintf(out_str, sizeof(out_str), "rx=%.2f ry=%.2f swa=%d swd=%d vra=%.2f is_disconnectd=%d\n",
            fsi6x_data.right_stick_x, fsi6x_data.right_stick_y,
-           fsi6x_data.swa, fsi6x_data.swd, fsi6x_data.vra);
+           fsi6x_data.swa, fsi6x_data.swd, fsi6x_data.vra, FSi6x_IsDisconnectd());
   Logger_Log(&logger, out_str);
   osDelay(20);
 }

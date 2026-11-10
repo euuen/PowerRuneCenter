@@ -8,9 +8,13 @@ target_sources(modules INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/euuen_mod/remote_control/FSi6x.c
 )
 
+target_link_options(modules INTERFACE
+    -u _printf_float
+)
+
 target_include_directories(modules INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 # 引入测试文件（只有启用时需要）
-# include(${CMAKE_CURRENT_SOURCE_DIR}/euuen_mod/test/CMakeLists.txt)
+include(${CMAKE_CURRENT_SOURCE_DIR}/euuen_mod/test/CMakeLists.txt)
