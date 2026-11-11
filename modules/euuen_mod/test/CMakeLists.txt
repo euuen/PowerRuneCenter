@@ -6,6 +6,9 @@ target_sources(modules INTERFACE
     # ${CMAKE_CURRENT_LIST_DIR}/looper.c
     # ${CMAKE_CURRENT_LIST_DIR}/m3508.c
     # ${CMAKE_CURRENT_LIST_DIR}/sbus_rc.c
-    ${CMAKE_CURRENT_LIST_DIR}/fsi6x.c
+    # ${CMAKE_CURRENT_LIST_DIR}/fsi6x.c
+    # ${CMAKE_CURRENT_LIST_DIR}/bmi088.c
+    # ${CMAKE_CURRENT_LIST_DIR}/ist8310.c
+    ${CMAKE_CURRENT_LIST_DIR}/mahony.c
     # ${CMAKE_CURRENT_LIST_DIR}/buzzer.c
 )

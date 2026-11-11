@@ -30,7 +30,7 @@
         {
             "name": "ubuntu daplink",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}\\build\\C_Board_Framework.elf",
+            "executable": "${workspaceRoot}/build/C_Board_Framework.elf",
             "request": "launch",
             "type": "cortex-debug",
             "device": "STM32F407IG",
